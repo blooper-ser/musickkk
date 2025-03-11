@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sub Music Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <nav class="flex justify-between items-center p-5 bg-gradient-to-r from-blue-500 to-green-500 shadow-lg">
+        <h1 class="text-3xl font-extrabold">ikkachi Music</h1>
+        <ul class="flex space-x-6 text-lg">
+            <li><a href="#" class="hover:text-yellow-300 transition duration-300">Home</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition duration-300">Trending</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition duration-300">New Releases</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition duration-300">Genres</a></li>
+        </ul>
+    </nav>
+    
+    <header class="text-center py-16 bg-cover bg-center" style="background-image: url('https://via.placeholder.com/1200x500');">
+        <h2 class="text-5xl font-extrabold drop-shadow-lg">Trending Now</h2>
+        <p class="text-gray-300 mt-2 text-lg">Stay up-to-date with the latest hits!</p>
+    </header>
+    
+    <section class="p-10">
+        <h3 class="text-4xl font-bold mb-6 text-center">🔥 Latest Releases</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
+                <img src="https://via.placeholder.com/300" class="rounded-lg w-full" alt="Album Cover">
+                <h4 class="mt-3 text-2xl font-semibold">Song Title - Artist</h4>
+                <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300">Play</button>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
+                <img src="https://via.placeholder.com/300" class="rounded-lg w-full" alt="Album Cover">
+                <h4 class="mt-3 text-2xl font-semibold">Song Title - Artist</h4>
+                <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300">Play</button>
+            </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
+                <img src="https://via.placeholder.com/300" class="rounded-lg w-full" alt="Album Cover">
+                <h4 class="mt-3 text-2xl font-semibold">Song Title - Artist</h4>
+                <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300">Play</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="p-10 text-center">
+        <h3 class="text-4xl font-bold mb-6">🎶 Now Playing</h3>
+        <div class="bg-gray-800 p-6 rounded-lg inline-block shadow-lg">
+            <p class="text-xl font-semibold">Song Title - Artist</p>
+            <audio controls class="mt-4 w-64">
+                <source src="song.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </section>
+    
+    <footer class="text-center p-5 bg-gradient-to-r from-blue-500 to-green-500 mt-10 shadow-lg">
+        <p class="text-lg">&copy; 2025 ikkachi Music. All rights reserved.</p>
+    </footer>
+</body>
+</html>
