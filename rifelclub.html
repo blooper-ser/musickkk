@@ -149,3 +149,141 @@
     </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Website</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #0f461ef7 0%, #050505f6 100%);
+            margin: 0;
+            padding-bottom: 100px; /* Space for the player */
+        }
+        .music-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .song {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 10px 0;
+            border-radius: 10px;
+            transition: transform 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+        .song:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        button {
+            background-color: #08d315;
+            border: none;
+            padding: 12px 18px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #000000;
+            transform: scale(1.1);
+        }
+        
+        /* Mini Player */
+        .mini-player {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: bottom 0.5s ease-in-out;
+        }
+        .mini-player.show {
+            bottom: 0;
+        }
+        .mini-player h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        audio {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎶 My Music Playlist 🎶</h1>
+    <div class="music-container">
+        <div class="song" onclick="playMusic('song1.mp3', '🔥 Song 1 - Artist A', this)">
+            <span>🔥 Song 1 - Artist A</span>
+            <button>▶</button>
+        </div>
+        <div class="song" onclick="playMusic('song2.mp3', '💃 Song 2 - Artist B', this)">
+            <span>💃 Song 2 - Artist B</span>
+            <button>▶</button>
+        </div>
+        <div class="song" onclick="playMusic('song3.mp3', '🎤 Song 3 - Artist C', this)">
+            <span>🎤 Song 3 - Artist C</span>
+            <button>▶</button>
+        </div>
+    </div>
+
+    <!-- Mini Audio Player -->
+    <div class="mini-player" id="mini-player">
+        <h3 id="now-playing-title">Now Playing</h3>
+        <audio id="audio-player" controls></audio>
+    </div>
+
+    <script>
+        function playMusic(song, title, element) {
+            let player = document.getElementById('audio-player');
+            let miniPlayer = document.getElementById('mini-player');
+            let titleElement = document.getElementById('now-playing-title');
+            let allButtons = document.querySelectorAll('.song button');
+
+            // Reset all buttons
+            allButtons.forEach(btn => btn.textContent = '▶');
+
+            // If the same song is playing, pause it
+            if (player.src.includes(song) && !player.paused) {
+                player.pause();
+                element.querySelector('button').textContent = '▶';
+                return;
+            }
+
+            // Set new song source
+            player.src = song;
+            player.play();
+            element.querySelector('button').textContent = '⏸';
+
+            // Show mini player
+            miniPlayer.classList.add('show');
+            titleElement.textContent = `Now Playing: ${title}`;
+        }
+    </script>
+</body>
+</html>
