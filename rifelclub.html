@@ -185,10 +185,10 @@
     <nav>
         <h1>ikkachi Music</h1>
         <ul>
-            <li><a href="ikkachi music 2.0.1.html">Home</a></li>
-            <li><a href="#">Trending</a></li>
-            <li><a href="#">New Releases</a></li>
-            <li><a href="#">Genres</a></li>
+            <li><a href="ikkachi music 2.0.1.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
+            <li><a href="ikkachi music 2.0.1.html" class="hover:text-yellow-300 transition duration-300">Popular</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition duration-300">Login</a></li>
+            <li><a href="#" class="hover:text-yellow-300 transition duration-300">Register</a></li>
         </ul>
     </nav>
 
@@ -201,28 +201,34 @@
                 <img src="cover/GandharvaGanam.png" alt="Song Art">
                 <div class="song-info">
                     <h3>Gandharva Ganam</h3>
-                    <p>Rex Vijayan, Shweta Mohan, Sooraj Santhosh</p>
+                    <p>Rex Vijayan, Shweta Mohan, Sooraj Santhosh, Vinayak Sasikumar</p>
                 </div>
             </div>
 
             <div class="song" onclick="playMusic(1)">
                 <img src="cover/AalunnuNeeye.png" alt="Song Art">
                 <div class="song-info">
-                    <h3>Aalunnu Neeye</h3>
-                    <p>Rex Vijayan, Shweta Mohan, Sooraj Santhosh</p>
+                    <h1>Aalunnu Neeye</h1>
+                    <p>Rex Vijayan, Pradeep Kumar, Sithara Krishnakuamar, Anwar Ali</p>
                 </div>
             </div>
-
-            <div class="song" onclick="playMusic(1)">
-                <img src="cover/KillerOnTheLoose.png" alt="Song Art">
+             
+            <div class="song" onclick="playMusic(2)">
+                <img src="cover\KillerOnTheLoose.png" alt="Song Art">
                 <div class="song-info">
-                    <h3>Killer On The Loose (from "Rifle Club")</h3>
-                    <p>Rex Vijayan • The Imbachi</p>
+                    <h3>Killer On The Loose</h3>
+                    <p>Rex Vijayan, The Imbachi</p>
                 </div>
             </div>
 
+            <div class="song" onclick="playMusic(3)">
+                <img src="cover\NayattuPrarthana.jpg" alt="Song Art">
+                <div class="song-info">
+                    <h3>Nayattu Prarthana</h3>
+                    <p>Rex Vijayan, Neha.S.Nair, Vinayak Sasikumar</p>
+                </div>
+            </div>
         </div>
-    </div>
 
         <!-- Right Side: Music Player -->
         <div class="music-player">
@@ -242,46 +248,51 @@
     <script>
         let songs = [
             { title: "Gandharva Ganam", src: "songs/GandharvaGanam.mp3", image: "cover/GandharvaGanam.png" },
-            { title: "Aalunnu Neeye", src: "songs/AalunnuNeeye.mp3", image: "cover/AalunnuNeeye.png" }
-            { title: "Killer On The Loose", src: "songs\KillerOnTheLoose.mp3", image: "cover\KillerOnTheLoose.png" }
+            { title: "Aalunnu Neeye", src: "songs/AalunnuNeeye.mp3", image:"cover/AalunnuNeeye.png" },
+            { title: "Killer On The Loose", src: "songs/KillerOnTheLoose.mp3", image:"cover/KillerOnTheLoose.png" },
+            { title: "NayattuPrarthana", src: "songs/NayattuPrarthana.mp3", image:"cover/NayattuPrarthana.jpg" }
         ];
-
+    
         let player = document.getElementById('audio-player');
-
+        let playPauseBtn = document.getElementById('play-pause-btn');
+        let currentIndex = 0;
+    
         function playMusic(index) {
-            player.src = songs[index].src;
-            document.getElementById('now-playing-title').textContent = songs[index].title;
-            document.getElementById('now-playing-img').src = songs[index].image;
+            currentIndex = index;
+            player.src = songs[currentIndex].src;
+            document.getElementById('now-playing-title').textContent = songs[currentIndex].title;
+            document.getElementById('now-playing-img').src = songs[currentIndex].image;
             player.play();
+            updatePlayPauseIcon(true);
         }
-        function updatePlayer() {
-        player.src = songs[currentIndex].src;
-        titleElement.textContent = songs[currentIndex].title;
-        albumArt.src = songs[currentIndex].image;
-    }
-
-    function nextTrack() {
-        currentIndex = (currentIndex + 1) % songs.length;
-        updatePlayer();
-        player.play();
-    }
-
-    function prevTrack() {
-        currentIndex = (currentIndex - 1 + songs.length) % songs.length;
-        updatePlayer();
-        player.play();
-    }
-
-    function togglePlayPause() {
-        if (player.paused) {
-            player.play();
-            playPauseBtn.textContent = '⏸';
-        } else {
-            player.pause();
-            playPauseBtn.textContent = '▶';
+    
+        function togglePlayPause() {
+            if (player.paused) {
+                player.play();
+                updatePlayPauseIcon(true);
+            } else {
+                player.pause();
+                updatePlayPauseIcon(false);
+            }
         }
-    }
+    
+        function prevTrack() {
+            currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+            playMusic(currentIndex);
+        }
+    
+        function nextTrack() {
+            currentIndex = (currentIndex + 1) % songs.length;
+            playMusic(currentIndex);
+        }
+    
+        function updatePlayPauseIcon(isPlaying) {
+            playPauseBtn.textContent = isPlaying ? "⏸" : "▶";
+        }
+    
+        player.onended = nextTrack;
     </script>
+    
 
 </body>
 </html>
