@@ -142,7 +142,7 @@
 <script>
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "pages/user.html";
+  window.location.href = "../pages/user.html";
 }
 </script>
         </ul>
@@ -273,7 +273,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
 
     if (response.ok) {
       localStorage.setItem("token", data.token);
-      window.location.href = "pages/home.html";
+      window.location.href = "../pages/home.html";
     } else {
       errorMessage.textContent = data.message || "Login failed.";
     }
