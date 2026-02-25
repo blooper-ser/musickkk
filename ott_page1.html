@@ -21,10 +21,15 @@
         <h1 class="text-2xl font-bold">ikkachi OTT</h1>
         <ul class="flex space-x-6 text-lg">
             <li><a href="#" class="hover:text-yellow-300">Home</a></li>
-            <li><a href="#" class="hover:text-yellow-300">Movies</a></li>
-            <li><a href="#" class="hover:text-yellow-300">Series</a></li>
-            <li><a href="#" class="hover:text-yellow-300">My List</a></li>
-            <li><a href="#" class="hover:text-yellow-300">Login</a></li>
+            <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "user.html";
+}
+</script>
+            
         </ul>
     </nav>
 

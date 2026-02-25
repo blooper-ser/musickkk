@@ -188,8 +188,15 @@
         <h1>ikkachi Music</h1>
         <ul>
             <li><a href="index.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
-            <li><a href="ikkachi music 2.0.1.html" class="hover:text-yellow-300 transition duration-300">Popular</a></li>
-            <li><a href="user.html" class="hover:text-yellow-300 transition duration-300">Login | Register</a></li>
+            <li><a href="home.html" class="hover:text-yellow-300 transition duration-300">Popular</a></li>
+            <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "user.html";
+}
+</script>
         </ul>
     </nav>
 &nbsp;

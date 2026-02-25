@@ -137,19 +137,24 @@
     <nav>
         <h1>ikkachi Music</h1>
         <ul>
-            <li><a href="index.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
-            <li><a href="ikkachi music 2.0.1.html" class="hover:text-yellow-300 transition duration-300">Popular</a></li>
-            <li><a href="user.html" class="hover:text-yellow-300 transition duration-300">Login | Register</a></li>
+            <button onclick="logout()">Logout</button>
+
+<script>
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "user.html";
+}
+</script>
         </ul>
     </nav>
 
     <!-- Login Container -->
     <div class="container" id="loginContainer">
         <h2>Login</h2>
-        <form id="loginForm" onsubmit="return validateLogin()">
+        <form id="loginForm">
             <div class="form-group">
-                <label for="loginEmail">Email:</label>
-                <input type="email" id="loginEmail" name="loginEmail" required>
+                <label for="loginIdentifier">Email or Username:</label>
+                <input type="text" id="loginIdentifier" required>
             </div>
             <div class="form-group">
                 <label for="loginPassword">Password:</label>
@@ -168,7 +173,7 @@
     <!-- Register Container -->
     <div class="container" id="registerContainer" style="display: none;">
         <h2>Register</h2>
-        <form id="registerForm" onsubmit="return validateRegister()">
+        <form id="registerForm">
             <div class="form-group">
                 <label for="registerUsername">Username:</label>
                 <input type="text" id="registerUsername" name="registerUsername" required>
@@ -196,66 +201,88 @@
     </div>
 
     <script>
-        let users = JSON.parse(localStorage.getItem('users')) || {};
+const API_URL = "http://localhost:5000/api/auth";
 
-        function showRegister() {
-            document.getElementById('loginContainer').style.display = 'none';
-            document.getElementById('registerContainer').style.display = 'block';
-            document.getElementById('loginErrorMessage').textContent = ''; // Clear login error message
-        }
+function showRegister() {
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('registerContainer').style.display = 'block';
+}
 
-        function showLogin() {
-            document.getElementById('registerContainer').style.display = 'none';
-            document.getElementById('loginContainer').style.display = 'block';
-            document.getElementById('registerErrorMessage').textContent = ''; // Clear register error message
-        }
+function showLogin() {
+    document.getElementById('registerContainer').style.display = 'none';
+    document.getElementById('loginContainer').style.display = 'block';
+}
 
-        function validateLogin() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            const errorMessage = document.getElementById('loginErrorMessage');
+// REGISTER
+document.getElementById("registerForm").addEventListener("submit", async function (e) {
+    e.preventDefault(); // 🔥 STOP PAGE RELOAD
 
-            const user = Object.keys(users).find(username => users[username].email === email);
+    const username = document.getElementById('registerUsername').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const errorMessage = document.getElementById('registerErrorMessage');
 
-            if (user && users[user].password === password) {
-                window.location.href = "ikkachi music 2.0.1.html"; // Redirect to home page
-                return false;
-            } else {
-                errorMessage.textContent = "Incorrect email or password.";
-                return false;
-            }
-        }
+    if (password !== confirmPassword) {
+        errorMessage.textContent = "Passwords do not match.";
+        return;
+    }
 
-        function validateRegister() {
-            const username = document.getElementById('registerUsername').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorMessage = document.getElementById('registerErrorMessage');
+    try {
+        const response = await fetch(`${API_URL}/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, email, password })
+        });
 
-            if (username === '' || email === '' || password === '' || confirmPassword === '') {
-                errorMessage.textContent = 'Please fill in all fields.';
-                return false;
-            }
+        const data = await response.json();
 
-            if (password !== confirmPassword) {
-                errorMessage.textContent = 'Passwords do not match.';
-                return false;
-            }
-
-            if (users[username]) {
-                errorMessage.textContent = 'Username already exists.';
-                return false;
-            }
-
-            users[username] = { email, password };
-            localStorage.setItem('users', JSON.stringify(users));
-
-            errorMessage.textContent = "Registration Successful.";
+        if (response.ok) {
             errorMessage.style.color = "green";
+            errorMessage.textContent = "Registration successful!";
             showLogin();
-            return false;
+        } else {
+            errorMessage.textContent = data.message || "Registration failed.";
         }
-    </script>
+
+    } catch (err) {
+        errorMessage.textContent = "Server error.";
+    }
+});
+
+// LOGIN
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const identifier = document.getElementById('loginIdentifier').value;
+  const password = document.getElementById('loginPassword').value;
+  const errorMessage = document.getElementById('loginErrorMessage');
+
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ identifier, password })   // 🔥 changed here
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem("token", data.token);
+      window.location.href = "home.html";
+    } else {
+      errorMessage.textContent = data.message || "Login failed.";
+    }
+
+  } catch (err) {
+    errorMessage.textContent = "Server error.";
+  }
+});
+</script>
+
 </body>
 </html>
