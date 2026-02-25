@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifle Club (Original Motion Picture Soundtrack)</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="auth.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
@@ -187,14 +188,13 @@
     <nav>
         <h1>ikkachi Music</h1>
         <ul>
-            <li><a href="index.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
-            <li><a href="home.html" class="hover:text-yellow-300 transition duration-300">Popular</a></li>
+            <li><a href="pages/home.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
             <button onclick="logout()">Logout</button>
 
 <script>
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "user.html";
+  window.location.href = "pages/user.html";
 }
 </script>
         </ul>

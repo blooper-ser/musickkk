@@ -11,14 +11,14 @@
     <nav class="flex justify-between items-center p-5 bg-gradient-to-r from-blue-500 to-green-500 shadow-lg">
         <h1 class="text-3xl font-extrabold">ikkachi Music</h1>
         <ul class="flex space-x-6 text-lg">
-            <li><a href="index.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
-            <li><a href="home.html" class="hover:text-yellow-300 transition duration-300">Popular</a></li>
+            <li><a href="pages/index.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
+            <li><a href="pages/home.html" class="hover:text-yellow-300 transition duration-300">Popular</a></li>
             <button onclick="logout()">Logout</button>
 
 <script>
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "user.html";
+  window.location.href = "pages/user.html";
 }
 </script>
         </ul>
@@ -35,7 +35,7 @@ function logout() {
             <div class="bg-gray-800 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
                 <img src="cover\rifleclub.png" class="rounded-lg w-full" alt="Album Cover">
                 <h4 class="mt-3 text-2xl font-semibold">Rifle Club</h4>
-                <a href="rifelclub.html">
+                <a href="pages/rifelclub.html">
                     <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
                       Play
                     </button>
@@ -44,7 +44,7 @@ function logout() {
             <div class="bg-gray-800 p-4 rounded-lg shadow-lg hover:scale-105 transition duration-300">
                 <img src="cover\l2.png" class="rounded-lg w-full" alt="Album Cover">
                 <h4 class="mt-3 text-2xl font-semibold">L2 Empuraan Trailer (Malayalam)</h4>
-                <a href="ott_page1.html">
+                <a href="pages/ott_page1.html">
                    <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
                     Play
                   </button>

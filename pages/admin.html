@@ -40,13 +40,13 @@ const token = localStorage.getItem("token");
 
 if (!token) {
   alert("Please login first");
-  window.location.href = "user.html";
+  window.location.href = "pages/user.html";
 }
 
 // Logout
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "user.html";
+  window.location.href = "pages/user.html";
 }
 
 // Load all users
@@ -61,7 +61,7 @@ async function loadUsers() {
     if (!response.ok) {
       const data = await response.json();
       alert(data.message || "Access denied");
-      window.location.href = "user.html";
+      window.location.href = "pages/user.html";
       return;
     }
 
