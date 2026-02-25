@@ -188,13 +188,13 @@
     <nav>
         <h1>ikkachi Music</h1>
         <ul>
-            <li><a href="pages/home.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
+            <li><a href="home.html" class="hover:text-yellow-300 transition duration-300">Home</a></li>
             <button onclick="logout()">Logout</button>
 
 <script>
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "pages/user.html";
+  window.location.href = "user.html";
 }
 </script>
         </ul>
@@ -211,7 +211,7 @@ function logout() {
             <h2 class="text-3xl font-bold mb-4">🎵 Playlist</h2>
             
             <div class="song" onclick="playMusic(0)">
-                <img src="cover/GandharvaGanam.png" alt="Song Art">
+                <img src="../cover/GandharvaGanam.png" alt="Song Art">
                 <div class="song-info">
                     <h3>Gandharva Ganam</h3>
                     <p>Rex Vijayan, Shweta Mohan, Sooraj Santhosh, Vinayak Sasikumar</p>
@@ -219,7 +219,7 @@ function logout() {
             </div>
 
             <div class="song" onclick="playMusic(1)">
-                <img src="cover/AalunnuNeeye.png" alt="Song Art">
+                <img src="../cover/AalunnuNeeye.png" alt="Song Art">
                 <div class="song-info">
                     <h1>Aalunnu Neeye</h1>
                     <p>Rex Vijayan, Pradeep Kumar, Sithara Krishnakuamar, Anwar Ali</p>
@@ -227,7 +227,7 @@ function logout() {
             </div>
              
             <div class="song" onclick="playMusic(2)">
-                <img src="cover\KillerOnTheLoose.png" alt="Song Art">
+                <img src="../cover/KillerOnTheLoose.png" alt="Song Art">
                 <div class="song-info">
                     <h3>Killer On The Loose</h3>
                     <p>Rex Vijayan, The Imbachi</p>
@@ -235,7 +235,7 @@ function logout() {
             </div>
 
             <div class="song" onclick="playMusic(3)">
-                <img src="cover\NayattuPrarthana.jpg" alt="Song Art">
+                <img src="../cover/NayattuPrarthana.jpg" alt="Song Art">
                 <div class="song-info">
                     <h3>Nayattu Prarthana</h3>
                     <p>Rex Vijayan, Neha.S.Nair, Vinayak Sasikumar</p>
@@ -246,7 +246,7 @@ function logout() {
         <!-- Right Side: Music Player -->
         <div class="music-player">
             <h2 class="text-3xl font-bold mb-4">Now Playing</h2>
-            <img id="now-playing-img" src="cover/rifleclub.png" alt="Album Art">
+            <img id="now-playing-img" src="../cover/rifleclub.png" alt="Album Art">
             <h3 id="now-playing-title">Select a Song</h3>
             <audio id="audio-player" controls></audio>
             
@@ -260,10 +260,10 @@ function logout() {
 
     <script>
         let songs = [
-            { title: "Gandharva Ganam", src: "songs/GandharvaGanam.mp3", image: "cover/GandharvaGanam.png" },
-            { title: "Aalunnu Neeye", src: "songs/AalunnuNeeye.mp3", image:"cover/AalunnuNeeye.png" },
-            { title: "Killer On The Loose", src: "songs/KillerOnTheLoose.mp3", image:"cover/KillerOnTheLoose.png" },
-            { title: "NayattuPrarthana", src: "songs/NayattuPrarthana.mp3", image:"cover/NayattuPrarthana.jpg" }
+            { title: "Gandharva Ganam", src: "songs/GandharvaGanam.mp3", image: "../cover/GandharvaGanam.png" },
+            { title: "Aalunnu Neeye", src: "songs/AalunnuNeeye.mp3", image:"../cover/AalunnuNeeye.png" },
+            { title: "Killer On The Loose", src: "songs/KillerOnTheLoose.mp3", image:"../cover/KillerOnTheLoose.png" },
+            { title: "NayattuPrarthana", src: "songs/NayattuPrarthana.mp3", image:"../cover/NayattuPrarthana.jpg" }
         ];
     
         let player = document.getElementById('audio-player');
