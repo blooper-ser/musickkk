@@ -12,11 +12,11 @@ if (!token) {
   .then(res => {
     if (!res.ok) {
       localStorage.removeItem("token");
-      window.location.href = "pages/user.html";
+      window.location.href = "../pages/user.html";
     }
   })
   .catch(() => {
     localStorage.removeItem("token");
-    window.location.href = "pages/user.html";
+    window.location.href = "../pages/user.html";
   });
 }
