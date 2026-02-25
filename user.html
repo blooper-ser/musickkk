@@ -201,7 +201,7 @@ function logout() {
     </div>
 
     <script>
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = "https://musickkk-3pj5.onrender.com/api/api/auth";
 
 function showRegister() {
     document.getElementById('loginContainer').style.display = 'none';
@@ -261,7 +261,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const errorMessage = document.getElementById('loginErrorMessage');
 
   try {
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    const response = await fetch("https://musickkk-3pj5.onrender.com/api/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
