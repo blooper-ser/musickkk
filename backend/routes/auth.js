@@ -95,4 +95,8 @@ router.get("/profile", verifyToken, async (req, res) => {
   }
 });
 
+// VERIFY TOKEN
+router.get("/verify", verifyToken, (req, res) => {
+  res.json({ message: "Token valid", user: req.user });
+});
 module.exports = router;
