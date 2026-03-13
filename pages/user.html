@@ -167,6 +167,10 @@ function logout() {
         </form>
         <div class="switch-form">
             New to ikkachi Music? <a href="#" onclick="showRegister()"> Register</a>
+            <br>
+            <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+            <br>
+            <a href="#" onclick="showChangePassword()">Change Password</a>
         </div>
     </div>
 
@@ -200,17 +204,78 @@ function logout() {
         </div>
     </div>
 
+    <!-- Forgot Password Container -->
+    <div class="container" id="forgotPasswordContainer" style="display: none;">
+        <h2>Forgot Password</h2>
+        <form id="forgotPasswordForm">
+            <div class="form-group">
+                <label for="forgotPasswordEmail">Email:</label>
+                <input type="email" id="forgotPasswordEmail" name="forgotPasswordEmail" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Send Reset Link</button>
+            </div>
+            <div id="forgotPasswordMessage" class="error-message"></div>
+        </form>
+        <div class="switch-form">
+            <a href="#" onclick="showLogin()">Back to Login</a>
+        </div>
+    </div>
+
+    <!-- Change Password Container -->
+    <div class="container" id="changePasswordContainer" style="display: none;">
+        <h2>Change Password</h2>
+        <form id="changePasswordForm">
+            <div class="form-group">
+                <label for="currentPassword">Current Password:</label>
+                <input type="password" id="currentPassword" name="currentPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New Password:</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmNewPassword">Confirm New Password:</label>
+                <input type="password" id="confirmNewPassword" name="confirmNewPassword" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Change Password</button>
+            </div>
+            <div id="changePasswordMessage" class="error-message"></div>
+        </form>
+        <div class="switch-form">
+            <a href="#" onclick="showLogin()">Back to Login</a>
+        </div>
+    </div>
+
     <script>
 const API_URL = "https://musickkk-3pj5.onrender.com/api/auth";
 
-function showRegister() {
+function hideAllContainers() {
     document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('registerContainer').style.display = 'none';
+    document.getElementById('forgotPasswordContainer').style.display = 'none';
+    document.getElementById('changePasswordContainer').style.display = 'none';
+}
+
+function showRegister() {
+    hideAllContainers();
     document.getElementById('registerContainer').style.display = 'block';
 }
 
 function showLogin() {
-    document.getElementById('registerContainer').style.display = 'none';
+    hideAllContainers();
     document.getElementById('loginContainer').style.display = 'block';
+}
+
+function showForgotPassword() {
+    hideAllContainers();
+    document.getElementById('forgotPasswordContainer').style.display = 'block';
+}
+
+function showChangePassword() {
+    hideAllContainers();
+    document.getElementById('changePasswordContainer').style.display = 'block';
 }
 
 // REGISTER
@@ -280,6 +345,84 @@ document.getElementById("loginForm").addEventListener("submit", async function (
 
   } catch (err) {
     errorMessage.textContent = "Server error.";
+  }
+});
+
+// FORGOT PASSWORD
+document.getElementById("forgotPasswordForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById('forgotPasswordEmail').value;
+  const message = document.getElementById('forgotPasswordMessage');
+
+  try {
+    const response = await fetch(`${API_URL}/forgot-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      message.style.color = "green";
+      message.textContent = data.message || "Password reset link sent.";
+    } else {
+      message.style.color = "red";
+      message.textContent = data.message || "Unable to send reset link.";
+    }
+  } catch (err) {
+    message.style.color = "red";
+    message.textContent = "Server error.";
+  }
+});
+
+// CHANGE PASSWORD
+document.getElementById("changePasswordForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const token = localStorage.getItem("token");
+  const currentPassword = document.getElementById("currentPassword").value;
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+  const message = document.getElementById("changePasswordMessage");
+
+  if (newPassword !== confirmNewPassword) {
+    message.style.color = "red";
+    message.textContent = "New passwords do not match.";
+    return;
+  }
+
+  if (!token) {
+    message.style.color = "red";
+    message.textContent = "Please login first to change your password.";
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/change-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({ currentPassword, newPassword })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      message.style.color = "green";
+      message.textContent = data.message || "Password changed successfully.";
+    } else {
+      message.style.color = "red";
+      message.textContent = data.message || "Unable to change password.";
+    }
+  } catch (err) {
+    message.style.color = "red";
+    message.textContent = "Server error.";
   }
 });
 </script>
